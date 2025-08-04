@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: basketservice
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: basketservice
+    redis:
+      host: localhost
+      port: 6379
+      password: sa
+  cache:
+    redis:
+      time-to-live: 60000
