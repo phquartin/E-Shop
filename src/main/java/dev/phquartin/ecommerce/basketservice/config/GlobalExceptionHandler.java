@@ -3,9 +3,7 @@ package dev.phquartin.ecommerce.basketservice.config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
-import io.lettuce.core.pubsub.PubSubOutput;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static io.lettuce.core.pubsub.PubSubOutput.Type.message;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
