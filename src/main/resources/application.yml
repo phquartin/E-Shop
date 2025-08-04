@@ -14,3 +14,8 @@ spring:
   cache:
     redis:
       time-to-live: 60000
+
+platzi:
+  store:
+    client:
+      api: https://api.escuelajs.co/api/v1/
