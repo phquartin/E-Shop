@@ -1,7 +1,7 @@
 package dev.phquartin.ecommerce.basketservice.service;
 
-import dev.phquartin.ecommerce.basketservice.client.PlatziStoreClient;
-import dev.phquartin.ecommerce.basketservice.client.response.PlatziProductResponse;
+import dev.phquartin.ecommerce.basketservice.client.FakeStoreClient;
+import dev.phquartin.ecommerce.basketservice.client.response.StoreProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,17 +9,17 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private final PlatziStoreClient client;
+    private final FakeStoreClient client;
 
-    public ProductService(PlatziStoreClient client) {
+    public ProductService(FakeStoreClient client) {
         this.client = client;
     }
 
-    public List<PlatziProductResponse> getAll() {
+    public List<StoreProductResponse> getAll() {
         return client.getAllProducts();
     }
 
-    public PlatziProductResponse getById(Long id) {
+    public StoreProductResponse getById(Long id) {
         return client.getProductById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
     }

@@ -1,6 +1,6 @@
 package dev.phquartin.ecommerce.basketservice.controller;
 
-import dev.phquartin.ecommerce.basketservice.client.response.PlatziProductResponse;
+import dev.phquartin.ecommerce.basketservice.client.response.StoreProductResponse;
 import dev.phquartin.ecommerce.basketservice.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +20,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PlatziProductResponse>> getAll() {
+    public ResponseEntity<List<StoreProductResponse>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlatziProductResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<StoreProductResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 

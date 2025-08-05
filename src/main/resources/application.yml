@@ -15,7 +15,6 @@ spring:
     redis:
       time-to-live: 60000
 
-platzi:
+fake:
   store:
-    client:
-      api: https://api.escuelajs.co/api/v1/
+    api: https://fakestoreapi.com
