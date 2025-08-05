@@ -48,4 +48,9 @@ public class BasketService {
         return repository.save(basket);
     }
 
+    public Basket getBasketById(String id){
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Basket not found with id: " + id));
+    }
+
 }
