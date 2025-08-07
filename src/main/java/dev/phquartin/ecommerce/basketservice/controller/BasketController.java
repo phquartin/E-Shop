@@ -1,6 +1,7 @@
 package dev.phquartin.ecommerce.basketservice.controller;
 
 import dev.phquartin.ecommerce.basketservice.controller.request.BasketRequest;
+import dev.phquartin.ecommerce.basketservice.controller.request.PaymentRequest;
 import dev.phquartin.ecommerce.basketservice.entity.Basket;
 import dev.phquartin.ecommerce.basketservice.service.BasketService;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,13 @@ public class BasketController {
         return ResponseEntity.ok(service.getBasketById(id));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Basket> create(@PathVariable String id, @RequestBody BasketRequest request){
+    public ResponseEntity<Basket> update(@PathVariable String id, @RequestBody BasketRequest request){
         return ResponseEntity.status(HttpStatus.OK).body(service.updateBasket(id, request));
+    }
+
+    @PutMapping("/{id}/payment")
+    public ResponseEntity<Basket> payBasket(@PathVariable String id, @RequestBody PaymentRequest request){
+        return ResponseEntity.status(HttpStatus.OK).body(service.payBasket(id, request));
     }
 
 }

@@ -2,6 +2,7 @@ package dev.phquartin.ecommerce.basketservice.service;
 
 import dev.phquartin.ecommerce.basketservice.client.response.StoreProductResponse;
 import dev.phquartin.ecommerce.basketservice.controller.request.BasketRequest;
+import dev.phquartin.ecommerce.basketservice.controller.request.PaymentRequest;
 import dev.phquartin.ecommerce.basketservice.entity.Basket;
 import dev.phquartin.ecommerce.basketservice.entity.Product;
 import dev.phquartin.ecommerce.basketservice.entity.Status;
@@ -48,6 +49,13 @@ public class BasketService {
         basket.getProducts().clear();
         basket.setProducts(products);
         basket.calculateTotalPrice();
+        return repository.save(basket);
+    }
+
+    public Basket payBasket(String id, PaymentRequest request) {
+        Basket basket = getBasketById(id);
+        basket.setPaymentMethod(request.paymentMethod());
+        basket.setStatus(Status.SOLD);
         return repository.save(basket);
     }
 
