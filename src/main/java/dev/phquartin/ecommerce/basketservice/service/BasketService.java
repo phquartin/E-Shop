@@ -44,8 +44,13 @@ public class BasketService {
     }
 
     public Basket updateBasket(String id, BasketRequest request) {
-        List<Product> products = createProductsList(request);
         Basket basket = getBasketById(id);
+
+        if(basket.getStatus() == Status.CLOSED || basket.getStatus() == Status.SOLD){
+            throw new IllegalArgumentException("Basket already closed or sold");
+        }
+
+        List<Product> products = createProductsList(request);
         basket.getProducts().clear();
         basket.setProducts(products);
         basket.calculateTotalPrice();
@@ -73,5 +78,14 @@ public class BasketService {
             products.add(productEntity);
         });
         return products;
+    }
+
+    public void close(String id) {
+        Basket basket = getBasketById(id);
+        if(basket.getStatus() == Status.CLOSED || basket.getStatus() == Status.SOLD){
+            throw new IllegalArgumentException("Basket already closed or sold");
+        }
+        basket.setStatus(Status.CLOSED);
+        repository.save(basket);
     }
 }
