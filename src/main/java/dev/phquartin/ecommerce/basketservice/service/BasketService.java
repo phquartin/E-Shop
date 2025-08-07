@@ -27,18 +27,7 @@ public class BasketService {
                     throw new IllegalArgumentException("A basket already exists for this client: " + p.getClient());
                 });
 
-        List<Product> products = new java.util.ArrayList<>();
-        request.products().forEach(productRequest -> {
-            StoreProductResponse storeProductResponse = productService.getById(productRequest.id());
-            Product productEntity = Product.builder()
-                    .id(storeProductResponse.id())
-                    .title(storeProductResponse.title())
-                    .price(storeProductResponse.price())
-                    .category(storeProductResponse.category())
-                    .quantity(productRequest.quantity())
-                    .build();
-            products.add(productEntity);
-        });
+        List<Product> products = createProductsList(request);
         Basket basket = Basket.builder()
                 .client(request.client())
                 .products(products)
@@ -53,4 +42,28 @@ public class BasketService {
                 .orElseThrow(() -> new IllegalArgumentException("Basket not found with id: " + id));
     }
 
+    public Basket updateBasket(String id, BasketRequest request) {
+        List<Product> products = createProductsList(request);
+        Basket basket = getBasketById(id);
+        basket.getProducts().clear();
+        basket.setProducts(products);
+        basket.calculateTotalPrice();
+        return repository.save(basket);
+    }
+
+    private List<Product> createProductsList(BasketRequest request) {
+        List<Product> products = new java.util.ArrayList<>();
+        request.products().forEach(productRequest -> {
+            StoreProductResponse storeProductResponse = productService.getById(productRequest.id());
+            Product productEntity = Product.builder()
+                    .id(storeProductResponse.id())
+                    .title(storeProductResponse.title())
+                    .price(storeProductResponse.price())
+                    .category(storeProductResponse.category())
+                    .quantity(productRequest.quantity())
+                    .build();
+            products.add(productEntity);
+        });
+        return products;
+    }
 }
